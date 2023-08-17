@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from 'src/app/services/users.service';
@@ -55,6 +55,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  @HostListener('window:beforeunload')
   ngOnDestroy(): void {
     this.paginatorSub.unsubscribe();
   }
