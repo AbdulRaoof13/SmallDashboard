@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+    <mat-card-content>
+        <mat-list>
+            <div mat-subheader style="font-weight: 500;">Phase result</div>
+            <mat-list-item *ngFor="let phase of phases">
+              <div matListItemTitle style="font-weight: 500;">Phase #{{phase.phase}} results: 
+                <span style="color: #aaaaaa;">{{phase.result}}</span> </div>
+            </mat-list-item>
+          </mat-list>
+    </mat-card-content>
+</mat-card>
+
+
+<form class="example-form" style="margin: 10px; width: 100%;">
+    <mat-form-field class="example-full-width">
+      <mat-label>Search</mat-label>
+      <input type="text" matInput >
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
