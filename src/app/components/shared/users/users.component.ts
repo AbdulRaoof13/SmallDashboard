@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, HostListener } 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { UsersService } from 'src/app/services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +14,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
 
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private snackBar: MatSnackBar) { }
 
   displayedColumns: string[] = ['id', 'first_name', 'last_name', 'email', 'avatar'];
   dataSource: any = [];
@@ -33,7 +34,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    console.log(this.paginator.page)
     this.paginatorSub = this.paginator.page.subscribe({
       next:(res:any)=>{
         this.getData(this.paginator.pageIndex + 1, this.paginator.pageSize)
@@ -51,6 +51,9 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error: (err: any) => {
         this.loading = false;
+        console.log(err);
+        // thanks Ignacio for making me realize this mistake
+        this.snackBar.open('Something went wrong while fetching the user data', 'close', {duration: 6000});
       }
     })
   }
